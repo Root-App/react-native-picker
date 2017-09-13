@@ -41,28 +41,29 @@
 }
 -(void)makeuiWith:(NSArray *)topbgColor With:(NSArray *)bottombgColor With:(NSArray *)leftbtnbgColor With:(NSArray *)rightbtnbgColor With:(NSArray *)centerbtnColor
 {
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0,0, self.frame.size.width, 40)];
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0,0, self.frame.size.width, 55)];
     view.backgroundColor = [UIColor cyanColor];
     
     [self addSubview:view];
     
-    self.leftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.leftBtn.frame = CGRectMake(10, 5, 90, 30);
-    [self.leftBtn setTitle:self.leftStr forState:UIControlStateNormal];
-    [self.leftBtn setFont:[UIFont systemFontOfSize:[_pickerToolBarFontSize integerValue]]];
-    self.leftBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    [self.leftBtn addTarget:self action:@selector(cancleAction) forControlEvents:UIControlEventTouchUpInside];
-    
-    [self.leftBtn setTitleColor:[self colorWith:leftbtnbgColor] forState:UIControlStateNormal];
-    
-    [view addSubview:self.leftBtn];
+    /* self.leftBtn = [UIButton buttonWithType:UIButtonTypeCustom]; */
+    /* self.leftBtn.frame = CGRectMake(10, 5, 90, 30); */
+    /* [self.leftBtn setTitle:self.leftStr forState:UIControlStateNormal]; */
+    /* [self.leftBtn setFont:[UIFont systemFontOfSize:[_pickerToolBarFontSize integerValue]]]; */
+    /* self.leftBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft; */
+    /* [self.leftBtn addTarget:self action:@selector(cancleAction) forControlEvents:UIControlEventTouchUpInside]; */
+    /*  */
+    /* [self.leftBtn setTitleColor:[self colorWith:leftbtnbgColor] forState:UIControlStateNormal]; */
+    /*  */
+    /* [view addSubview:self.leftBtn]; */
     
     view.backgroundColor=[self colorWith:topbgColor];
     
     self.rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.rightBtn.frame = CGRectMake(view.frame.size.width-100,5, 90, 30);
+    /* self.rightBtn.frame = CGRectMake(view.frame.size.width-100,5, 90, 30); */
+    self.rightBtn.frame = CGRectMake(0, 0, SCREEN_WIDTH, 55);
     [self.rightBtn setTitle:self.rightStr forState:UIControlStateNormal];
-    self.rightBtn.contentHorizontalAlignment=UIControlContentHorizontalAlignmentRight;
+    self.rightBtn.contentHorizontalAlignment=UIControlContentHorizontalAlignmentCenter;
     
     [self.rightBtn setTitleColor:[self colorWith:rightbtnbgColor] forState:UIControlStateNormal];
     
@@ -70,19 +71,19 @@
     [self.rightBtn setFont:[UIFont systemFontOfSize:[_pickerToolBarFontSize integerValue]]];
     [self.rightBtn addTarget:self action:@selector(cfirmAction) forControlEvents:UIControlEventTouchUpInside];  
     
-    UILabel *cenLabel=[[UILabel alloc]initWithFrame:CGRectMake(90, 5, SCREEN_WIDTH-180, 30)];
-    
-    cenLabel.textAlignment=NSTextAlignmentCenter;
-    
-    [cenLabel setFont:[UIFont systemFontOfSize:[_pickerToolBarFontSize integerValue]]];
-    
-    cenLabel.text=self.centStr;
-    
-    [cenLabel setTextColor:[self colorWith:centerbtnColor]];
-    
-    [view addSubview:cenLabel];
+    /* UILabel *cenLabel=[[UILabel alloc]initWithFrame:CGRectMake(90, 5, SCREEN_WIDTH-180, 30)]; */
+    /*  */
+    /* cenLabel.textAlignment=NSTextAlignmentCenter; */
+    /*  */
+    /* [cenLabel setFont:[UIFont systemFontOfSize:[_pickerToolBarFontSize integerValue]]]; */
+    /*  */
+    /* cenLabel.text=self.centStr; */
+    /*  */
+    /* [cenLabel setTextColor:[self colorWith:centerbtnColor]]; */
+    /*  */
+    /* [view addSubview:cenLabel]; */
 
-    self.pick = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 40, self.frame.size.width, self.frame.size.height - 40)];
+    self.pick = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 55, self.frame.size.width, self.frame.size.height - 55)];
     self.pick.delegate = self;
     self.pick.dataSource = self;
     self.pick.showsSelectionIndicator=YES;
@@ -595,7 +596,7 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         [UIView animateWithDuration:.2f animations:^{
             
-            [self setFrame:CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, 250)];
+            [self setFrame:CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, 330)];
             
         }];
     });
@@ -628,7 +629,7 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         [UIView animateWithDuration:.2f animations:^{
             
-            [self setFrame:CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, 250)];
+            [self setFrame:CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, 330)];
         }];
     });
 }
@@ -927,7 +928,7 @@
     if (lbl == nil) {
         lbl = [[UILabel alloc]init];
         //在这里设置字体相关属性
-        lbl.font = [UIFont systemFontOfSize:[_pickerFontSize integerValue]];
+        lbl.font = [UIFont fontWithName:@"AvenirNext-Medium" size:[_pickerFontSize integerValue]];
         lbl.textColor = [self colorWith:_pickerFontColor];
         lbl.textAlignment = UITextAlignmentCenter;
     }
