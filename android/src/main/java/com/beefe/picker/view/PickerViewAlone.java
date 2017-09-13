@@ -1,6 +1,7 @@
 package com.beefe.picker.view;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.LinearLayout;
 import com.beefe.picker.R;
 import com.facebook.react.bridge.ReadableArray;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -75,6 +77,7 @@ public class PickerViewAlone extends LinearLayout {
         loopView.setLayoutParams(params);
         loopView.setItems(values);
         loopView.setSelectedPosition(0);
+        loopView.setAlignment(Paint.Align.CENTER);
         ReturnData returnData = new ReturnData();
         returnData.setItem(values.get(0));
         returnData.setIndex(loopView.getSelectedIndex());
@@ -107,6 +110,7 @@ public class PickerViewAlone extends LinearLayout {
                     ReadableArray childArray = array.getArray(i);
                     ArrayList<String> values = arrayToList(childArray);
                     final LoopView loopView = new LoopView(getContext());
+                    loopView.setAlignment(getAlignmentForColumn(i, array.size()));
                     LayoutParams params = new LayoutParams(0, LayoutParams.MATCH_PARENT);
                     if (weights != null) {
                         if (i < weights.length) {
@@ -159,6 +163,28 @@ public class PickerViewAlone extends LinearLayout {
                     break;
                 default:
                     break;
+            }
+        }
+    }
+
+    public Paint.Align getAlignmentForColumn(int index, int numColumns) {
+        if(numColumns == 1) {
+            return Paint.Align.CENTER;
+
+        } else if (numColumns == 2) {
+          if(index == 0) {
+              return Paint.Align.LEFT;
+          } else {
+              return Paint.Align.RIGHT;
+          }
+
+        } else {
+            if(index == 0) {
+                return Paint.Align.LEFT;
+            } else if (index == 1) {
+                return Paint.Align.CENTER;
+            } else {
+                return Paint.Align.RIGHT;
             }
         }
     }
