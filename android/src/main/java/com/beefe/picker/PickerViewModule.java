@@ -141,8 +141,8 @@ public class PickerViewModule extends ReactContextBaseJavaModule implements Life
         if (activity != null && options.hasKey(PICKER_DATA)) {
             View view = activity.getLayoutInflater().inflate(R.layout.picker_view, null);
             RelativeLayout barLayout = (RelativeLayout) view.findViewById(R.id.barLayout);
-            TextView cancelTV = (TextView) view.findViewById(R.id.cancel);
-            TextView titleTV = (TextView) view.findViewById(R.id.title);
+            // TextView cancelTV = (TextView) view.findViewById(R.id.cancel);
+            // TextView titleTV = (TextView) view.findViewById(R.id.title);
             TextView confirmTV = (TextView) view.findViewById(R.id.confirm);
             RelativeLayout pickerLayout = (RelativeLayout) view.findViewById(R.id.pickerLayout);
             pickerViewLinkage = (PickerViewLinkage) view.findViewById(R.id.pickerViewLinkage);
@@ -156,8 +156,10 @@ public class PickerViewModule extends ReactContextBaseJavaModule implements Life
                     barViewHeight = (int) options.getDouble(PICKER_TOOL_BAR_HEIGHT);
                 }
             } else {
-                barViewHeight = (int) (activity.getResources().getDisplayMetrics().density * 40);
+                barViewHeight = 40;
             }
+            barViewHeight = (int) (activity.getResources().getDisplayMetrics().density * barViewHeight);
+
             RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
                     RelativeLayout.LayoutParams.MATCH_PARENT,
                     barViewHeight);
@@ -171,8 +173,8 @@ public class PickerViewModule extends ReactContextBaseJavaModule implements Life
 
             if (options.hasKey(PICKER_TOOL_BAR_TEXT_SIZE)) {
                 int toolBarTextSize = options.getInt(PICKER_TOOL_BAR_TEXT_SIZE);
-                cancelTV.setTextSize(toolBarTextSize);
-                titleTV.setTextSize(toolBarTextSize);
+                // cancelTV.setTextSize(toolBarTextSize);
+                // titleTV.setTextSize(toolBarTextSize);
                 confirmTV.setTextSize(toolBarTextSize);
             }
 
@@ -206,37 +208,37 @@ public class PickerViewModule extends ReactContextBaseJavaModule implements Life
             if (options.hasKey(PICKER_TITLE_TEXT)) {
                 titleText = options.getString(PICKER_TITLE_TEXT);
             }
-            titleTV.setText(!TextUtils.isEmpty(titleText) ? titleText : "");
-            if (options.hasKey(PICKER_TITLE_TEXT_COLOR)) {
-                ReadableArray array = options.getArray(PICKER_TITLE_TEXT_COLOR);
-                int[] colors = getColor(array);
-                titleTV.setTextColor(argb(colors[3], colors[0], colors[1], colors[2]));
-            }
+            // titleTV.setText(!TextUtils.isEmpty(titleText) ? titleText : "");
+            // if (options.hasKey(PICKER_TITLE_TEXT_COLOR)) {
+            //     ReadableArray array = options.getArray(PICKER_TITLE_TEXT_COLOR);
+            //     int[] colors = getColor(array);
+            //     titleTV.setTextColor(argb(colors[3], colors[0], colors[1], colors[2]));
+            // }
 
             if (options.hasKey(PICKER_CANCEL_BTN_TEXT)) {
                 cancelText = options.getString(PICKER_CANCEL_BTN_TEXT);
             }
-            cancelTV.setText(!TextUtils.isEmpty(cancelText) ? cancelText : "");
-            if (options.hasKey(PICKER_CANCEL_BTN_COLOR)) {
-                ReadableArray array = options.getArray(PICKER_CANCEL_BTN_COLOR);
-                int[] colors = getColor(array);
-                cancelTV.setTextColor(argb(colors[3], colors[0], colors[1], colors[2]));
-            }
-            cancelTV.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    switch (curStatus) {
-                        case 0:
-                            returnData = pickerViewAlone.getSelectedData();
-                            break;
-                        case 1:
-                            returnData = pickerViewLinkage.getSelectedData();
-                            break;
-                    }
-                    commonEvent(EVENT_KEY_CANCEL);
-                    hide();
-                }
-            });
+            // cancelTV.setText(!TextUtils.isEmpty(cancelText) ? cancelText : "");
+            // if (options.hasKey(PICKER_CANCEL_BTN_COLOR)) {
+            //     ReadableArray array = options.getArray(PICKER_CANCEL_BTN_COLOR);
+            //     int[] colors = getColor(array);
+            //     cancelTV.setTextColor(argb(colors[3], colors[0], colors[1], colors[2]));
+            // }
+            // cancelTV.setOnClickListener(new View.OnClickListener() {
+            //     @Override
+            //     public void onClick(View v) {
+            //         switch (curStatus) {
+            //             case 0:
+            //                 returnData = pickerViewAlone.getSelectedData();
+            //                 break;
+            //             case 1:
+            //                 returnData = pickerViewLinkage.getSelectedData();
+            //                 break;
+            //         }
+            //         commonEvent(EVENT_KEY_CANCEL);
+            //         hide();
+            //     }
+            // });
 
             if (options.hasKey(IS_LOOP)) {
                 isLoop = options.getBoolean(IS_LOOP);

@@ -30,6 +30,9 @@ import java.util.concurrent.TimeUnit;
 public class LoopView extends View {
 
     private float scaleX = 1.05F;
+    private float magnifiedScale = 1.2F;
+    private float padding = 25;
+    private Paint.Align alignment = Paint.Align.RIGHT;
 
     enum ACTION {
         // 点击，滑翔(滑到尽头)，拖拽事件
@@ -56,7 +59,7 @@ public class LoopView extends View {
 
     // 条目间距倍数
     float lineSpacingMultiplier;
-    boolean isLoop;
+    boolean isLoop = true;
 
     // 第一条线Y坐标值
     private int firstLineY;
@@ -109,7 +112,7 @@ public class LoopView extends View {
         lineSpacingMultiplier = 2.0F;
         isLoop = true;
         itemsVisible = 9;
-        textSize = (int) (context.getResources().getDisplayMetrics().density * 16);
+        textSize = relativeSize(16);
 
         totalScrollY = 0;
         initPosition = -1;
@@ -121,15 +124,15 @@ public class LoopView extends View {
         paintOuterText = new Paint();
         paintOuterText.setColor(0xffafafaf);
         paintOuterText.setAntiAlias(true);
-        paintOuterText.setTypeface(Typeface.MONOSPACE);
-        paintOuterText.setTextSize(textSize);
+        paintOuterText.setTypeface(Typeface.SANS_SERIF);
 
         paintCenterText = new Paint();
         paintCenterText.setColor(0xff000000);
         paintCenterText.setAntiAlias(true);
         paintCenterText.setTextScaleX(scaleX);
-        paintCenterText.setTypeface(Typeface.MONOSPACE);
-        paintCenterText.setTextSize(textSize);
+        paintCenterText.setTypeface(Typeface.SANS_SERIF);
+
+        setTextSize(textSize);
 
         paintIndicator = new Paint();
         paintIndicator.setColor(0xffb8bbc2);
@@ -150,7 +153,7 @@ public class LoopView extends View {
         if (items == null) {
             return;
         }
-        maxTextHeight = textSize;
+        maxTextHeight = (int)(textSize * magnifiedScale);
 
         halfCircumference = (int) (maxTextHeight * lineSpacingMultiplier * (itemsVisible - 1));
         measuredHeight = (int) ((halfCircumference * 2) / Math.PI);
@@ -203,14 +206,18 @@ public class LoopView extends View {
     }
 
     public final void setNotLoop() {
-        isLoop = false;
+//        isLoop = false;
+    }
+
+    public final void setAlignment(Paint.Align newAlignment) {
+        alignment = newAlignment;
     }
 
     public final void setTextSize(float size) {
         if (size > 0.0F) {
-            this.textSize = (int) (context.getResources().getDisplayMetrics().density * size);
+            this.textSize = relativeSize(size);
             paintOuterText.setTextSize(textSize);
-            paintCenterText.setTextSize(textSize);
+            paintCenterText.setTextSize(textSize * magnifiedScale);
             remeasure();
             invalidate();
         }
@@ -379,9 +386,22 @@ public class LoopView extends View {
         }
     }
 
+    private int relativeSize(float value) {
+        return (int) (context.getResources().getDisplayMetrics().density * value);
+    }
+
     private float getX(String text, Paint paint) {
         paint.getTextBounds(text, 0, text.length(), tempRect);
-        return (getWidth() - tempRect.width() * scaleX) / 2;
+
+        switch (alignment) {
+            case LEFT:
+                return relativeSize(padding);
+            case RIGHT:
+                return getWidth() - tempRect.width() - relativeSize(padding);
+            case CENTER:
+            default:
+                return (getWidth() - tempRect.width() * scaleX) / 2;
+        }
     }
 
     /**
