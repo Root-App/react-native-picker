@@ -188,7 +188,7 @@ public class PickerViewModule extends ReactContextBaseJavaModule implements Life
                 int[] colors = getColor(array);
                 confirmTV.setTextColor(argb(colors[3], colors[0], colors[1], colors[2]));
             }
-            confirmTV.setOnClickListener(new View.OnClickListener() {
+            barLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     switch (curStatus) {
