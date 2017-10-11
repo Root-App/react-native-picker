@@ -18,11 +18,11 @@ final class InertiaTimerTask extends TimerTask {
     @Override
     public final void run() {
         if (a == Integer.MAX_VALUE) {
-            if (Math.abs(velocityY) > 2000F) {
+            if (Math.abs(velocityY) > 6000F) {
                 if (velocityY > 0.0F) {
-                    a = 2000F;
+                    a = 6000F;
                 } else {
-                    a = -2000F;
+                    a = -6000F;
                 }
             } else {
                 a = velocityY;
