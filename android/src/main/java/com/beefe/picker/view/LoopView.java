@@ -59,7 +59,7 @@ public class LoopView extends View {
 
     // 条目间距倍数
     float lineSpacingMultiplier;
-    boolean isLoop = true;
+    boolean isLoop;
 
     // 第一条线Y坐标值
     private int firstLineY;
@@ -206,7 +206,7 @@ public class LoopView extends View {
     }
 
     public final void setNotLoop() {
-//        isLoop = false;
+        isLoop = false;
     }
 
     public final void setAlignment(Paint.Align newAlignment) {
