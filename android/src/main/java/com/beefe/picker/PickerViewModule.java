@@ -383,7 +383,7 @@ public class PickerViewModule extends ReactContextBaseJavaModule implements Life
         if (dialog == null) {
             return;
         }
-        if (!dialog.isShowing()) {
+        if (!dialog.isShowing() && !getCurrentActivity().isFinishing()) {
             dialog.show();
         }
     }
